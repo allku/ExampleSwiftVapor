@@ -1,10 +1,15 @@
 import Fluent
 import Vapor
 
-struct Person: Content {
-  var name: String
-  var age: Int
+struct ApplicationInfo: Content {
+  var application: ApplicationName
+  var success: Bool
 }
+
+struct ApplicationName: Content {
+  var name: String
+}
+
 
 struct IndexController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -12,9 +17,10 @@ struct IndexController: RouteCollection {
         route.get(use: index)
     }
 
-    func index(req: Request) throws -> Person {
-        let person1 = Person(name: "Jorge  á, é, í, ó, ú", age: 39)
-        print("Name: \(person1.name) and Age: \( person1.age)")
+    func index(req: Request) throws -> ApplicationInfo {
+        let name = ApplicationName(name: "Example in Swift with Vapor")
+        let app = ApplicationInfo(application: name, success: true)
+        print("Name: \(app) and Age: \( app.success)")
         /*
         Convert dictionary to JSON
         let jsonDic = ["name":"Alan"]
@@ -22,6 +28,6 @@ struct IndexController: RouteCollection {
         let jsonString = String(data: data, encoding: .utf8)
         return jsonString ?? "FAILED
         */
-        return person1
+        return app
     }
 }
