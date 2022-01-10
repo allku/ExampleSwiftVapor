@@ -13,14 +13,15 @@ struct ApplicationName: Content {
 
 struct IndexController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let route = routes.grouped("index")
+        // Index /
+        let route = routes.grouped("")
         route.get(use: index)
     }
 
     func index(req: Request) throws -> ApplicationInfo {
         let name = ApplicationName(name: "Example in Swift with Vapor")
         let app = ApplicationInfo(application: name, success: true)
-        print("Name: \(app) and Age: \( app.success)")
+        print("Application: \(app)")
         /*
         Convert dictionary to JSON
         let jsonDic = ["name":"Alan"]
