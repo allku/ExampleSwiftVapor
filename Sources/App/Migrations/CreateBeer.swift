@@ -13,7 +13,7 @@ struct CreateBeer: Migration {
                 .id, onDelete: .restrict, 
                 onUpdate: .noAction,
                 name: "fk_beers_location")
-            //.unique(on: ("name", "brand"), name: "Uk_beer")
+            .unique(on: "name", "brand", name: "Uk_Beers")
             .create()
     }
 
