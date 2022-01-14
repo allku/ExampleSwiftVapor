@@ -25,11 +25,12 @@ final class Location: Model, Content {
          name: String, 
          observation: String, 
          status: String, 
-         location: Location) throws  {
+         location: Location? = nil) throws  {
         self.id = id
         self.name = name
         self.observation = observation
         self.status = status
-        self.$location.id = try! location.requireID()
+//        self.$location.id = try! location?
+//            .requireID() as! Int
     }
 }

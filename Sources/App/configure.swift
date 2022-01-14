@@ -18,7 +18,16 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateLocation())
     app.migrations.add(CreateTodo())
     app.migrations.add(CreateBeer())
+    app.migrations.add(LocationSeed())
+
+    app.commands.use(HelloCommand() as AnyCommand, as: "hello")
+    
+    if app.environment == .development {
+        print("Development!")
+    }
+
 
     // register routes
     try routes(app)
+    
 }
