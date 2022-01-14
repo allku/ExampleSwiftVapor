@@ -10,17 +10,13 @@ struct LocationSeed: Migration {
             let locations: [Location] = try!
             [
                 .init(name: "Europa", status: "Active", location: earth),
-                .init(name: "America", observation: "My continent", status: "Active")
+                .init(name: "America", observation: "My continent", status: "Active", location: earth)
             ]
 
             return locations.map {
                 location in location.save(on: database)
             }.flatten(on: database.eventLoop)
         }
-//
-//        print("Earth " + earth.name)
-//
-//        return earth.save(on: database)
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void>
