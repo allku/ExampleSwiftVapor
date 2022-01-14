@@ -11,26 +11,25 @@ final class Location: Model, Content {
     var name: String
     
     @Field(key: "observation")
-    var observation: String
+    var observation: String?
     
     @Field(key: "status")
     var status: String
 
-    @Parent(key: "location_id")
-    var location: Location
+    @OptionalParent(key: "location_id")
+    var location: Location?
 
     init() { }
     
     init(id: Int? = nil, 
          name: String, 
-         observation: String, 
+         observation: String? = nil, 
          status: String, 
          location: Location? = nil) throws  {
         self.id = id
         self.name = name
         self.observation = observation
         self.status = status
-//        self.$location.id = try! location?
-//            .requireID() as! Int
+        self.$location.id = try location?.requireID()
     }
 }

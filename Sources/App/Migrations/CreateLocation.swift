@@ -5,7 +5,7 @@ struct CreateLocation: Migration {
         return database.schema("locations")
             .field("id", .custom("int generated always as identity"), .identifier(auto: false))
             .field("name", .custom("varchar"), .required)
-            .field("observation", .custom("varchar"), .required)
+            .field("observation", .custom("varchar"))
             .field("status", .custom("varchar"), .required)
             .field("location_id", .custom("int"))
             .foreignKey("location_id", 
