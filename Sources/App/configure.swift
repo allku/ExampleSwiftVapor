@@ -22,11 +22,10 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateWarehouse())
     app.migrations.add(CreateBatch())
     app.migrations.add(CreateInventory())
-    // Seeder
-    app.migrations.add(LocationSeed())
 
-    let hello = HelloCommand(name: "Jorge Luis", app: app)
-    app.commands.use(hello as AnyCommand, as: "hello")
+    // Command
+    let seed = SeederCommand(app: app)
+    app.commands.use(seed as AnyCommand, as: "seeder")
     
     if app.environment == .development {
         print("Development!")

@@ -1,31 +1,30 @@
 import Vapor
 
-class HelloCommand: Command {
+class SeederCommand: Command {
     struct Signature: CommandSignature { }
 
-    var name: String
     var app: Application
 
-    init(name: String, app: Application)
+    init(app: Application)
     {
-        self.name = name
         self.app = app
     }
 
     var help: String {
-        "Says hello"
+        "Seeder"
     }
 
     func run(using context: CommandContext, signature: Signature) throws {
-        context.console.print("Hello, world!")
-        context.console.print(self.name)
+        context.console.print("Seeder Begin ...")
         
         let location = try Location(
             name: "Earth",
             status: "Active")
         try location.save(on: app.db).wait()
 
-        let name = context.console.ask("What is your \("name", color: .blue)?")
-        context.console.print("Hello, \(name) 👋")
+        context.console.print("Seeder End ...")
+        //Read console data
+        //let name = context.console.ask("What is your \("name", color: .blue)?")
+        //context.console.print("Hello, \(name) 👋")
     }
 }
