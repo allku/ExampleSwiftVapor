@@ -19,6 +19,10 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateTodo())
     app.migrations.add(CreateBeer())
     app.migrations.add(CreateIngredient())
+    app.migrations.add(CreateWarehouse())
+    app.migrations.add(CreateBatch())
+    app.migrations.add(CreateInventory())
+    // Seeder
     app.migrations.add(LocationSeed())
 
     app.commands.use(HelloCommand() as AnyCommand, as: "hello")
