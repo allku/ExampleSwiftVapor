@@ -25,7 +25,8 @@ public func configure(_ app: Application) throws {
     // Seeder
     app.migrations.add(LocationSeed())
 
-    app.commands.use(HelloCommand() as AnyCommand, as: "hello")
+    let hello = HelloCommand(name: "Jorge Luis", app: app)
+    app.commands.use(hello as AnyCommand, as: "hello")
     
     if app.environment == .development {
         print("Development!")
