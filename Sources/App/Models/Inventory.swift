@@ -28,8 +28,8 @@ final class Inventory: Model, Content {
          quantity: Float,
          ingredient: Ingredient) throws {
         self.id = id
-        //self.$codeWarehouse.code = try codeWarehouse.requireID()
-        //self.$codeBatch.code = try codeBatch.requireID()
+        self.codeWarehouse.code = codeWarehouse.code
+        self.codeBatch.code = codeBatch.code
         self.quantity = quantity
         self.$ingredient.id = try ingredient.requireID()
     }
