@@ -19,9 +19,13 @@ class HelloCommand: Command {
     func run(using context: CommandContext, signature: Signature) throws {
         context.console.print("Hello, world!")
         context.console.print(self.name)
-        // Seeder
-        app.migrations.add(LocationSeed())
-        LocationSeed()
-        context.console.print("Test seeder")
+        
+        let location = try Location(
+            name: "Earth",
+            status: "Active")
+        try location.save(on: app.db).wait()
+
+        let name = context.console.ask("What is your \("name", color: .blue)?")
+        context.console.print("Hello, \(name) 👋")
     }
 }

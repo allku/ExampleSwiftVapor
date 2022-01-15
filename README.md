@@ -43,6 +43,10 @@ vapor run routes
 vapor run serve
 ```
 
+## Update dependencies
+```
+swift package update
+```
 ## Test
 Use HTTPie
 https://httpie.io/
