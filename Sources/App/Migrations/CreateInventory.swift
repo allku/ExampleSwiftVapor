@@ -8,6 +8,14 @@ struct CreateInventory: Migration {
             .field("code_batch", .custom("varchar"), .required)
             .field("quantity", .custom("numeric"), .required)
             .field("ingredient_id", .custom("int"))
+            .foreignKey("code_warehouse", references: "warehouses", "code",
+                onDelete: .restrict, 
+                onUpdate: .noAction,
+                name: "fk_inventory_warehouse")
+            .foreignKey("code_batch", references: "batches", "code",
+                onDelete: .restrict, 
+                onUpdate: .noAction,
+                name: "fk_inventory_batch")
             .foreignKey("ingredient_id", 
                 references: Ingredient.schema, 
                 .id, onDelete: .restrict, 
