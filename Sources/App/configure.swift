@@ -23,6 +23,7 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateWarehouse())
     app.migrations.add(CreateBatch())
     app.migrations.add(CreateInventory())
+    app.migrations.add(CreateFabricationOrder())
 
     // Command
     let seed = SeederCommand(app: app)
