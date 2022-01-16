@@ -1,5 +1,6 @@
 import Vapor
-import Chalk
+import SQLKit
+import Rainbow
 
 class VersionCommand: Command {
     struct Signature: CommandSignature { }
@@ -16,7 +17,7 @@ class VersionCommand: Command {
     }
 
     func run(using context: CommandContext, signature: Signature) throws {
-        context.console.print("Raw SQL Begin ...")
+        context.console.print("Raw SQL Begin ...".red)
         
         if let sql = app.db as? SQLDatabase {
             // The underlying database driver is SQL.
@@ -25,11 +26,11 @@ class VersionCommand: Command {
             
             for r in result {
                 let version = try r.decode(column: "version", as: String.self)
-                print(version)
+                print(version.green)
             }
         }
         
-        context.console.print("Raw SQL End ...")
+        context.console.print("Raw SQL End ...".red)
 
     }
 }
