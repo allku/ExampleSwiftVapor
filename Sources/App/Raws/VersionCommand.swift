@@ -17,7 +17,7 @@ class VersionCommand: Command {
     }
 
     func run(using context: CommandContext, signature: Signature) throws {
-        context.console.print("Raw SQL Begin ...".red)
+        context.console.print("Raw SQL Begin ...".lightBlue)
         
         if let sql = app.db as? SQLDatabase {
             // The underlying database driver is SQL.
@@ -30,7 +30,7 @@ class VersionCommand: Command {
             }
         }
         
-        context.console.print("Raw SQL End ...".red)
+        context.console.print("Raw SQL End ...".lightBlue)
 
     }
 }

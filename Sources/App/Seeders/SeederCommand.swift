@@ -1,4 +1,5 @@
 import Vapor
+import Rainbow
 
 class SeederCommand: Command {
     struct Signature: CommandSignature {
@@ -21,7 +22,7 @@ class SeederCommand: Command {
       do {
           let option = signature.option
           if (option == "create") {
-              context.console.print("Seeder Begin ...")
+              context.console.print("Seeder Begin ...".lightBlue)
         
               let earth = try Location(
                   name: "Earth",
@@ -39,14 +40,14 @@ class SeederCommand: Command {
                 try l.save(on: self.app.db).wait()
               }
               
-              context.console.print("Seeder End ...")
+              context.console.print("Seeder End ...".lightBlue)
           }
           else if (option == "destroy") {
               try Location.query(on: app.db).delete(force: true).wait()
-              context.console.print("Destroy Data ...")
+              context.console.print("Destroy Data ...".lightBlue)
           }
           else {
-              context.console.print("Option not defined")
+              context.console.print("Option not defined".red.bold.blink)
           }
       } catch {
             context.console.print("vapor run seeder <option>")

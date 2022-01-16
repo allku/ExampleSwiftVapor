@@ -1,6 +1,7 @@
 import Fluent
 import FluentPostgresDriver
 import Vapor
+import Rainbow
 
 // configures your application
 public func configure(_ app: Application) throws {
@@ -31,9 +32,13 @@ public func configure(_ app: Application) throws {
     app.commands.use(rawVersionSql as AnyCommand, as: "version")
     
     if app.environment == .development {
-        print("Development!")
+        // blink -> parpadeo
+        //print("Development Environment!".cyan.bold.blink)
+        print("Development Environment!".black.bold.onLightYellow)
     }
-
+    else {
+        print("Production Environment!".black.bold.onLightYellow)
+    }
 
     // register routes
     try routes(app)
