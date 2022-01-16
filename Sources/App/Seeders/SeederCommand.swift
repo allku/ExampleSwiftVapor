@@ -1,8 +1,11 @@
 import Vapor
 
 class SeederCommand: Command {
-    struct Signature: CommandSignature { }
-
+    struct Signature: CommandSignature {
+        @Argument(name: "option")
+        var option: String
+    }
+    
     var app: Application
 
     init(app: Application)
@@ -15,16 +18,41 @@ class SeederCommand: Command {
     }
 
     func run(using context: CommandContext, signature: Signature) throws {
-        context.console.print("Seeder Begin ...")
+      do {
+          let option = signature.option
+          if (option == "create") {
+              context.console.print("Seeder Begin ...")
         
-        let location = try Location(
-            name: "Earth",
-            status: "Active")
-        try location.save(on: app.db).wait()
+              let earth = try Location(
+                  name: "Earth",
+                  status: "Active")
+              try earth.save(on: self.app.db).wait()
 
-        context.console.print("Seeder End ...")
-        //Read console data
-        //let name = context.console.ask("What is your \("name", color: .blue)?")
-        //context.console.print("Hello, \(name) 👋")
+              let locations: [Location] = try!
+              [
+                .init(name: "Europa", status: "Active", location: earth),
+                .init(name: "America", observation: "My continent", status: "Active", location: earth)
+              ]
+
+              for l in locations {
+                print("Location " + l.name)
+                try l.save(on: self.app.db).wait()
+              }
+              
+              context.console.print("Seeder End ...")
+          }
+          else if (option == "destroy") {
+              try Location.query(on: app.db).delete(force: true).wait()
+              context.console.print("Destroy Data ...")
+          }
+          else {
+              context.console.print("Option not defined")
+          }
+      } catch {
+            context.console.print("vapor run seeder <option>")
+      }
+      //Read console data
+      //let name = context.console.ask("What is your \("name", color: .blue)?")
+      //context.console.print("Hello, \(name) 👋")
     }
 }
