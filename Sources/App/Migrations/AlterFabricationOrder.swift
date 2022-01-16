@@ -10,6 +10,6 @@ struct AlterFabricationOrder: Migration {
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
         let sql = database as! SQLDatabase
-        return sql.raw("ALTER TABLE fabrications_orders	 DROP CONSTRAINT fk_fabrications_orders_inventories").run()
+        return sql.raw("ALTER TABLE fabrications_orders DROP CONSTRAINT fk_fabrications_orders_inventories").run()
     }
 }
