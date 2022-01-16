@@ -1,18 +1,15 @@
 import Fluent
 import SQLKit
 
-struct UpdateFabricationOrder: Migration {
+struct AlterFabricationOrder: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-            return database.raw("ALTER TABLE emp MODIFY COLUMN name VARCHAR(100);").run()
-      /*
-            return database as? SQLDatabase {
-             try sql.raw("ALTER TABLE fabrications_orders ADD CONSTRAINT fabrications_orders_fk FOREIGN KEY (code_warehouse,code_batch,ingredient_id) REFERENCES inventories(code_warehouse,code_batch,ingredient_id) ON DELETE RESTRICT ON UPDATE RESTRICT")
-                .all()
-        }
-            */
+        
+        let sql = database as! SQLDatabase
+        return sql.raw("ALTER TABLE fabrications_orders ADD CONSTRAINT fk_fabrications_orders_inventories FOREIGN KEY (code_warehouse,code_batch,ingredient_id) REFERENCES inventories(code_warehouse,code_batch,ingredient_id) ON DELETE RESTRICT ON UPDATE RESTRICT").run()
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema("fabrications_orders").delete()
+        let sql = database as! SQLDatabase
+        return sql.raw("ALTER TABLE fabrications_orders	 DROP CONSTRAINT fk_fabrications_orders_inventories").run()
     }
 }
