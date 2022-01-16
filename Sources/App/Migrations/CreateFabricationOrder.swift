@@ -8,13 +8,9 @@ struct CreateFabricationOrder: Migration {
             .field("ingredient_id", .custom("int"))
             .field("code_warehouse", .custom("varchar"), .required)
             .field("code_batch", .custom("varchar"), .required)
-            .field("quantity", .custom("numeric"), .required)
-            .foreignKey("ingredient_id",
-                references: "ingredients", "id",
-                onDelete: .restrict, 
-                onUpdate: .noAction,
-                name: "fk_fabrications_orders_inventories")            
+            .field("quantity", .custom("numeric"), .required)           
             /*
+            // It does not work my preferred hypothetical way
             .foreignKey("ingredient_id" ,"code_warehouse", "code_batch", 
                 references: "inventories", "ingredient_id", "code_warehouse", "code_batch",
                 onDelete: .restrict, 
