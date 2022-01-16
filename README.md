@@ -42,6 +42,19 @@ vapor run routes
 ```console
 vapor run serve
 ```
+## Custom Commands
+### Postgres Version
+```
+vapor run version
+```
+### Seeder 
+```
+vapor run seeder create
+```
+and
+```
+vapor run seeder destroy
+```
 
 ## Update dependencies
 ```

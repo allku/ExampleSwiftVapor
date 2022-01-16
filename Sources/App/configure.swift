@@ -27,6 +27,9 @@ public func configure(_ app: Application) throws {
     let seed = SeederCommand(app: app)
     app.commands.use(seed as AnyCommand, as: "seeder")
     
+    let rawVersionSql = VersionCommand(app: app)
+    app.commands.use(rawVersionSql as AnyCommand, as: "version")
+    
     if app.environment == .development {
         print("Development!")
     }
