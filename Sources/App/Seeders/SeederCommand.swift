@@ -31,8 +31,12 @@ class SeederCommand: Command {
 
               let locations: [Location] = try!
               [
+                .init(name: "África", status: "Active", location: earth),
+                .init(name: "América", observation: "My continent", status: "Active", location: earth),
+                .init(name: "Asia", status: "Active", location: earth),
                 .init(name: "Europa", status: "Active", location: earth),
-                .init(name: "America", observation: "My continent", status: "Active", location: earth)
+                .init(name: "Oceanía", status: "Active", location: earth),
+                .init(name: "Antártida", status: "Active", location: earth)
               ]
 
               for l in locations {

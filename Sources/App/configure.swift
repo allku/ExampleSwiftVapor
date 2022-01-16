@@ -16,6 +16,7 @@ public func configure(_ app: Application) throws {
         database: Environment.get("DATABASE_NAME") ?? "vaporbeers"
     ), as: .psql)
 
+    /*
     app.migrations.add(CreateLocation())
     app.migrations.add(CreateTodo())
     app.migrations.add(CreateBeer())
@@ -25,6 +26,8 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateInventory())
     app.migrations.add(CreateFabricationOrder())
     app.migrations.add(AlterFabricationOrder())
+     */
+    app.migrations.add(CreateLocationView())
 
     // Command
     let seed = SeederCommand(app: app)
