@@ -16,8 +16,9 @@ public func configure(_ app: Application) throws {
         database: Environment.get("DATABASE_NAME") ?? "vaporbeers"
     ), as: .psql)
 
-    /*
+    
     app.migrations.add(CreateLocation())
+    /*
     app.migrations.add(CreateTodo())
     app.migrations.add(CreateBeer())
     app.migrations.add(CreateIngredient())

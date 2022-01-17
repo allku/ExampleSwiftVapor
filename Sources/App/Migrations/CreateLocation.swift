@@ -1,4 +1,5 @@
 import Fluent
+import SQLKit
 
 struct CreateLocation: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
@@ -17,6 +18,8 @@ struct CreateLocation: Migration {
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema("locations").delete()
+//        return database.schema("locations").delete()
+        let sql = database as! SQLDatabase
+        return sql.raw("DROP table locations cascade").run()
     }
 }

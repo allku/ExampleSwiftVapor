@@ -1,6 +1,7 @@
 import Fluent
 import SQLKit
 import Foundation
+import Rainbow
 
 // Home folder
 //let home = FileManager.default.homeDirectoryForCurrentUser
@@ -11,39 +12,28 @@ struct CreateLocationView: Migration {
         let currentPath = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         let sqlPath = currentPath.appendingPathComponent("Sql")
         
-        let filePath = self
-            .append(
-                toPath: sqlPath.absoluteString,
-                withPathComponent: "v_locations.sql") 
-
-
-        if let command = try String(contentsOfFile: filePath) {
+        do {
+            let filePath = sqlPath.path + "/" + "v_locations.sql"
+            
+            print(filePath.green)
+            
+            let ddlSql = try String(contentsOfFile: filePath)
+            
+            print(ddlSql.green)
+            
             let sql = database as! SQLDatabase
-            return sql.raw(SQLQueryString(command)).run()
+            return sql.raw(
+                SQLQueryString(ddlSql)
+            ).run()
+        } catch {
+            print("Unexpected error: \(error)".red.bold.blink)
+            return database.eventLoop.future()
         }
-
-        return database.eventLoop.future()
-
-        //return sql.raw("select version() as version").run()
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
         let sql = database as! SQLDatabase
-        return sql.raw("select version() as version").run()
-        // return sql.raw("DROP VIEW v_locations").run()
-    }
-
-    private func append(toPath path: String, 
-                        withPathComponent pathComponent: String) -> String? 
-    {
-        if var pathURL = URL(string: path) 
-        {
-            pathURL.appendPathComponent(pathComponent)
-
-            return pathURL.absoluteString
-        }
-
-        return nil
+        return sql.raw("DROP VIEW v_locations").run()
     }
 }
 
