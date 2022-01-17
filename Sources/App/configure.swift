@@ -16,9 +16,8 @@ public func configure(_ app: Application) throws {
         database: Environment.get("DATABASE_NAME") ?? "vaporbeers"
     ), as: .psql)
 
-    
+    // Create table
     app.migrations.add(CreateLocation())
-    /*
     app.migrations.add(CreateTodo())
     app.migrations.add(CreateBeer())
     app.migrations.add(CreateIngredient())
@@ -26,8 +25,9 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateBatch())
     app.migrations.add(CreateInventory())
     app.migrations.add(CreateFabricationOrder())
+    // Alter table
     app.migrations.add(AlterFabricationOrder())
-     */
+    // Views
     app.migrations.add(CreateLocationView())
 
     // Command
